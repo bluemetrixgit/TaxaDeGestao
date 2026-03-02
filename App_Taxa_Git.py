@@ -165,7 +165,7 @@ year = st.number_input("Digite o ano dos arquivos PL (ex.: 2025)", min_value=200
 
 # Fetch control spreadsheet from GitHub instead of upload
 st.subheader("Carregar Planilha de Controle")
-control_url = "https://raw.githubusercontent.com/bluemetrixgit/TaxaDeGestao/main/Controle%20de%20Contratos%20-%20Atualizado%202025.xlsx"  # Substitua pela URL real do repositório GitHub
+control_url = "https://raw.githubusercontent.com/bluemetrixgit/TaxaDeGestao/main/Controle%20de%20Contratos%20-%20Atualizado%202026.xlsx"  # Substitua pela URL real do repositório GitHub
 try:
     response = requests.get(control_url)
     response.raise_for_status()
@@ -380,4 +380,5 @@ elif processing_type == "Ágora":
                     st.info("Todas as contas de agora_total.xlsx foram casadas com a planilha de controle (Ágora).")
 
         except Exception as e:
+
             st.error(f"Erro ao processar merge da Ágora: {str(e)}")
