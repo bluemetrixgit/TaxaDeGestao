@@ -17,7 +17,8 @@ class CalculandoTaxadeGestao:
         try:
             self.planilha_controle = pd.read_excel(uploaded_planilha_de_controle, sheet_name=broker, skiprows=1)
             if broker == 'BTG':
-                self.planilha_controle['Conta'] = self.planilha_controle['Conta'].astype(str).str.replace(r'\.0$', '', regex=True).apply(lambda x: x.zfill(9))
+                self.planilha_controle['Conta'] = self.planilha_controle['Conta'].fillna('').astype(str).str.replace(r'\.0$', '', regex=True)
+                self.planilha_controle['Conta'] = self.planilha_controle['Conta'].apply(lambda x: x.zfill(9) if x.isdigit() else '')
             elif broker in ['Safra', 'Ágora']:
                 self.planilha_controle['Conta'] = self.planilha_controle['Conta'].astype(str).str.replace(r'\.0$', '', regex=True)
             
@@ -65,7 +66,8 @@ class CalculandoTaxadeGestao:
                 pl = pl[['Conta', 'PL']].rename(columns={'Conta': 'conta', 'PL': 'VALOR'})
             elif broker == 'BTG':
                 pl = pd.read_excel(uploaded_pl)
-                pl['Conta'] = pl['Conta'].astype(str).str.replace(r'\.0$', '', regex=True).apply(lambda x: x.zfill(9))
+                pl['Conta'] = pl['Conta'].fillna('').astype(str).str.replace(r'\.0$', '', regex=True)
+                pl['Conta'] = pl['Conta'].apply(lambda x: x.zfill(9) if x.isdigit() else '')
                 # Filter out empty accounts or those with fewer than 5 digits
                 pl = pl[
                     (pl['Conta'].notna()) & 
