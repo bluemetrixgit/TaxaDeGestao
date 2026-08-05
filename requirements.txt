@@ -4,3 +4,4 @@ numpy
 openpyxl
 xlsxwriter
 requests
+starlette==0.47.3
